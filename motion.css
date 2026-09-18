@@ -24,3 +24,19 @@
 .coach .bio{font-size:22px;line-height:1.5}.contact .head .lead{display:none}
 @media(max-width:760px){.facility-explorer{grid-template-columns:1fr;gap:0}.oct-visual{max-width:350px}.zone-picks button{font-size:26px;padding-block:14px}.member-preview{min-height:235px;padding:22px}.member-preview strong{font-size:34px}#prog .pr{flex-basis:86%;padding-inline:20px}#prog .pr summary{min-height:265px}#prog .nm{font-size:48px}.particle-banner>span{font-size:11px}.about.pad{padding-block:40px}.hero .stage{height:380px}.hero h1{font-size:clamp(64px,16vw,88px)}}
 @media(prefers-reduced-motion:reduce){.member-preview{transform:none!important}#prog{scroll-behavior:auto}.particle-banner>span{display:none}}
+
+/* Program cards: dulled discipline photo behind each card. Photo sits in ::before,
+   the dark scrim + red glow in ::after, content lifted above both. */
+#prog .pr{--pr-img:none}
+#prog .pr:nth-child(1){--pr-img:url("images/programs/bjj.jpg")}
+#prog .pr:nth-child(2){--pr-img:url("images/programs/boxing.jpg")}
+#prog .pr:nth-child(3){--pr-img:url("images/programs/mma.jpg")}
+#prog .pr:nth-child(4){--pr-img:url("images/programs/wrestling.jpg")}
+#prog .pr:nth-child(5){--pr-img:url("images/programs/gym.jpg")}
+#prog .pr:nth-child(6){--pr-img:url("images/programs/recovery.jpg")}
+#prog .pr::before,#prog .pr::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none}
+#prog .pr::before{background:var(--pr-img) center/cover no-repeat;opacity:.24;filter:grayscale(.55) contrast(1.08);transform:scale(1.02);transition:opacity .45s,transform .9s cubic-bezier(.2,.8,.2,1)}
+#prog .pr::after{background:radial-gradient(ellipse at 100% 0,rgba(230,0,0,.22),transparent 60%),linear-gradient(180deg,rgba(20,22,24,.28) 0%,rgba(20,22,24,.72) 52%,#141618 100%)}
+#prog .pr:hover::before,#prog .pr[open]::before{opacity:.34;transform:scale(1.06)}
+#prog .pr>summary,#prog .pr>.body{position:relative;z-index:1}
+@media(prefers-reduced-motion:reduce){#prog .pr::before{transition:none;transform:none}#prog .pr:hover::before,#prog .pr[open]::before{transform:none}}
