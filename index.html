@@ -409,6 +409,7 @@ footer small{color:var(--dim)}
 <link rel="stylesheet" href="motion.css">
 <link rel="stylesheet" href="controls.css">
 <link rel="stylesheet" href="timetable.css">
+<link rel="stylesheet" href="hero.css">
 
 </head>
 <body>
@@ -439,15 +440,21 @@ footer small{color:var(--dim)}
 <main id="main" tabindex="-1">
 <!-- HERO -->
 <section class="hero" id="home">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hb-photo"></div>
+    <div class="hb-glow"></div>
+    <div class="hb-floor"></div>
+    <div class="hb-shade"></div>
+    <div class="hb-grain"></div>
+  </div>
   <div class="hero-copy hc-top">
-    <p class="hero-eyebrow">Eagles Gym <span>/</span> Punchbowl, Sydney</p>
-    <h1 class="h" id="h1"><span class="ln"><span>Unleash</span></span><span class="ln"><span>your</span></span><span class="ln"><span><em>potential.</em></span></span></h1>
+    <h1 class="h" id="h1"><span class="ln"><span>Find your</span></span><span class="ln"><span><em>Edge.</em></span></span></h1>
   </div>
   <div class="stage" id="stage">
     <canvas id="bag" aria-label="Interactive 3D punching bag. Tap or click the bag to punch it."></canvas>
-    <div class="hint" id="hint">Tap the bag to train</div>
+    <div class="hint" id="hint"><i class="hint-dot"></i><span>Tap to train</span></div>
     <div class="hud">
-      <div class="counter"><b id="hits">0</b><small>punches<br>thrown</small></div>
+      <div class="counter"><b id="hits">0</b><small>Hits</small></div>
       <button class="snd" id="snd" aria-pressed="true" aria-label="Sound on">
         <svg class="on" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4Z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
         <svg class="off" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4Z" fill="currentColor"/><path d="m16 9 6 6m0-6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -455,15 +462,14 @@ footer small{color:var(--dim)}
     </div>
   </div>
   <div class="hero-copy hc-bot">
-    <p class="sub">Combat. Strength. Recovery.<br>Everything you need to train, under one roof in Punchbowl.</p>
+    <p class="sub">Combat. Strength. Recovery.</p>
     <div class="cta">
-      <a class="btn red" href="https://eaglesgym.com.au/signup/" target="_blank" rel="noopener">Sign up today <span class="ar">→</span></a>
-      <a class="btn" href="#timetable">See class times</a>
+      <a class="btn red" href="https://eaglesgym.com.au/signup/" target="_blank" rel="noopener">Join Eagles <span class="ar">→</span></a>
+      <a class="btn" href="#timetable">View Timetable <span class="ar">→</span></a>
     </div>
     <div class="facts">
-      <div><small>Open 7 days</small><b>5:30am – 11pm</b></div>
+      <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.5"/><path d="M12 6.8V12l3.4 2.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span><small>Open 7 days</small><b>5:30am – 11pm</b></span></div>
       <div><small>Next class</small><b id="nextClass">Kids BJJ 4:45pm</b></div>
-      <div><small>Classes from</small><b>Age 4</b></div>
     </div>
   </div>
 </section>

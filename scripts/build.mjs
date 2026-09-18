@@ -4,7 +4,7 @@ import path from 'node:path';
 const root=fileURLToPath(new URL('../',import.meta.url));
 const output=path.join(root,'dist');
 await mkdir(output,{recursive:true});
-const files=['index.html','brand-refinement.css','prototype-elements.css','motion.css','motion.js','controls.css','timetable.css'];
+const files=['index.html','brand-refinement.css','prototype-elements.css','motion.css','motion.js','controls.css','timetable.css','hero.css'];
 for(const file of files)await cp(path.join(root,file),path.join(output,file));
 for(const folder of ['images','fonts','vendor']){
   await cp(path.join(root,folder),path.join(output,folder),{recursive:true,filter:src=>!src.endsWith('README.txt')});
