@@ -20,7 +20,10 @@
  [75,120,165,215].forEach(r=>element('polygon',{points:points(r).join(' '),stroke:r===215?'#e60000':'#393939'},$('#octLines')));
  const descriptions=['MMA · BJJ · Wrestling','Bags · Pads · Striking','Free weights · Racks · Machines','Treadmills · Bikes · Rowers','Battle ropes · Kettlebells · Sleds','Sauna · Recovery beds · Compression'];
  const mapping=[0,1,3,4,6,7],buttons=all('[data-zone]');
- const choose=button=>{const n=+button.dataset.zone;buttons.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));sectors.forEach((s,i)=>s.classList.toggle('on',i===mapping[n]));$('#zoneLetter').textContent=String(n+1).padStart(2,'0');$('#zoneTitle').textContent=button.textContent.replace(/^\s*\d+\s*/,'');$('#zoneDetail').textContent=descriptions[n]};
+ const zonePhotos=['images/programs/mma.jpg','images/programs/boxing.jpg','images/programs/gym.jpg','images/photos/cardio.jpg','images/photos/functional.jpg','images/programs/recovery.jpg'];
+ const choose=button=>{const n=+button.dataset.zone;buttons.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));sectors.forEach((s,i)=>s.classList.toggle('on',i===mapping[n]));$('#zoneLetter').textContent=String(n+1).padStart(2,'0');$('#zoneTitle').textContent=button.textContent.replace(/^\s*\d+\s*/,'');$('#zoneDetail').textContent=descriptions[n];
+  // Swap the photo showing through the octagon ring: fade out, change, fade in.
+  const vis=$('.oct-visual');if(vis){vis.classList.add('swap');clearTimeout(vis._t);vis._t=setTimeout(()=>{vis.style.setProperty('--zone-img','url("'+zonePhotos[n]+'")');vis.classList.remove('swap')},180)}};
  buttons.forEach(b=>{b.addEventListener('click',()=>choose(b));b.addEventListener('focus',()=>choose(b));if(fine)b.addEventListener('pointerenter',()=>choose(b))});choose(buttons[0]);
  // Live preview follows the existing calculator without generating fake credentials.
  const card=$('#memberPreview');

@@ -40,3 +40,27 @@
 #prog .pr:hover::before,#prog .pr[open]::before{opacity:.34;transform:scale(1.06)}
 #prog .pr>summary,#prog .pr>.body{position:relative;z-index:1}
 @media(prefers-reduced-motion:reduce){#prog .pr::before{transition:none;transform:none}#prog .pr:hover::before,#prog .pr[open]::before{transform:none}}
+
+/* Facility explorer: the chosen zone's photo shows through the octagon ring
+   (between the sector wedges and the centre disc). Swapped by motion.js. */
+.oct-visual::before{content:"";position:absolute;inset:4%;border-radius:50%;background:var(--zone-img,none) center/cover no-repeat;opacity:.38;filter:grayscale(.5) contrast(1.05);transition:opacity .35s;pointer-events:none}
+.oct-visual.swap::before{opacity:0}
+.oct-visual svg{position:relative;z-index:1}.oct-center{z-index:2}
+
+/* Full-bleed photo bands between sections so the page does not run
+   text-on-black for its whole length. Photo is dulled and vignetted. */
+.band{position:relative;isolation:isolate;overflow:hidden;min-height:clamp(260px,32vw,420px);display:flex;align-items:flex-end;border-block:1px solid var(--line);background:#0e0d0d}
+.band::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--band-img) center/cover no-repeat;filter:grayscale(.5) contrast(1.05);opacity:.55;transform:scale(1.03)}
+.band::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(11,10,10,.85),rgba(11,10,10,.35) 60%,rgba(11,10,10,.75)),linear-gradient(180deg,rgba(11,10,10,.2),rgba(11,10,10,.9))}
+.band .wrap{width:100%;padding-block:40px}
+.band .kicker{margin-bottom:12px}
+.band h2{margin:0;font:700 clamp(40px,6vw,88px)/.95 var(--d);text-transform:uppercase;max-width:14ch;letter-spacing:-.01em}
+.band h2 em{font-style:normal;color:var(--red2)}
+.band p{margin:14px 0 0;color:#cfc8c1;font-size:16px;max-width:48ch}
+.band .btn{margin-top:22px}
+
+/* Coach: black-belt texture behind the name, fading into the section colour. */
+.coach::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:url("images/photos/blackbelt.jpg") left center/cover no-repeat;opacity:.22;filter:grayscale(1) contrast(1.1);-webkit-mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.6) 40%,transparent 75%);mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.6) 40%,transparent 75%)}
+.coach .wrap{position:relative;z-index:1}
+@media(max-width:760px){.band{min-height:240px}.band h2{font-size:40px}.coach::before{-webkit-mask-image:linear-gradient(180deg,#000,transparent 70%);mask-image:linear-gradient(180deg,#000,transparent 70%)}}
+@media(prefers-reduced-motion:reduce){.oct-visual::before{transition:none}}

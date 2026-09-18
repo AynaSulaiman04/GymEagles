@@ -1,0 +1,49 @@
+/* Timetable: a real week grid — one row per start time, one column per day,
+   so a parent can scan "4:45pm" straight across the week. Mobile collapses to
+   a single-day agenda driven by the existing day tabs. */
+.tt-next{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px;padding:14px 18px;border:1px solid var(--line);border-left:3px solid var(--red);background:#141214;border-radius:4px;font-size:15px;color:var(--mute)}
+.tt-next strong{color:var(--bone)}
+.tt-next b{font:700 12px var(--b);letter-spacing:.12em;text-transform:uppercase;color:#ff4949}
+.tt-next .pulse{width:8px;height:8px;border-radius:50%;background:var(--red2);box-shadow:0 0 0 0 rgba(255,38,38,.6);animation:ttpulse 1.8s infinite;flex:none}
+@keyframes ttpulse{to{box-shadow:0 0 0 10px rgba(255,38,38,0)}}
+.tt-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.tt-legend{display:flex;gap:18px;flex-wrap:wrap;margin:0;font:600 13px var(--b);color:var(--mute)}
+.tt-legend span{display:inline-flex;align-items:center;gap:8px}
+.tt-legend i{width:10px;height:10px;border-radius:50%;flex:none}
+.tt{display:grid;grid-template-columns:78px repeat(5,minmax(0,1fr));border:1px solid var(--line);border-radius:4px;overflow:hidden;background:#111011}
+.tt-corner,.tt-day{padding:16px 14px;border-bottom:1px solid var(--line2);background:#161416}
+.tt-day{font:700 22px/1 var(--d);text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;gap:8px;border-left:1px solid var(--line)}
+.tt-day small{font:700 10px var(--b);letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--red);padding:4px 7px;border-radius:2px}
+.tt-day.today{color:#ff4949}
+.tt-time{padding:14px 8px 14px 14px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:3px}
+.tt-time b{font:700 26px/1 var(--d)}
+.tt-time span{font:600 11px var(--b);letter-spacing:.08em;color:var(--mute);text-transform:uppercase}
+.tt-cell{padding:8px;border-bottom:1px solid var(--line);border-left:1px solid var(--line);min-height:82px}
+.tt-cell.empty{background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1.5px);background-size:12px 12px}
+.tt-cell.today{background-color:rgba(230,0,0,.045)}
+.tt-cell time.m{display:none}
+.tt-cls{display:flex;flex-direction:column;gap:6px}
+.cls{--c:var(--adults);position:relative;padding:10px 12px 10px 13px;border-radius:3px;background:rgba(199,48,58,.1);border-left:3px solid var(--c);transition:opacity .35s,filter .35s}
+.cls.kids{--c:var(--kids);background:rgba(217,164,65,.09)}
+.cls.teens{--c:var(--teens);background:rgba(109,155,224,.1)}
+.cls b{display:block;font:700 17px/1.15 var(--d);text-transform:uppercase;letter-spacing:.01em;padding-right:34px}
+.cls small{display:block;margin-top:4px;font:600 12px var(--b);color:var(--c)}
+.cls small span{color:var(--mute);font-weight:500}
+.cls.live::after{content:"Now";position:absolute;top:8px;right:8px;font:700 10px var(--b);letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--red);padding:3px 6px;border-radius:2px}
+.cls.dim{opacity:.16;filter:grayscale(1)}
+.weekend{margin-top:14px;border-radius:4px;border:1px dashed var(--line2);padding:16px 18px;color:var(--mute);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:15px}
+.weekend b{color:var(--bone)}
+.weekend a{color:var(--bone);text-decoration:underline;text-underline-offset:3px}
+.daytabs{display:none}
+@media(max-width:900px){
+  .daytabs{display:inline-flex;margin-bottom:8px}
+  .tt{display:block;border:0;border-radius:0;background:transparent}
+  .tt-corner,.tt-day,.tt-time{display:none}
+  .tt-cell{display:none;grid-template-columns:70px 1fr;gap:12px;padding:14px 0;border-left:0;background:none;min-height:0}
+  .tt-cell.today{background-color:transparent}
+  .tt-cell.show:not(.empty){display:grid}
+  .tt-cell time.m{display:block;font:700 24px/1 var(--d);padding-top:9px}
+  .tt-cell time.m span{display:block;font:600 11px var(--b);color:var(--mute);letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
+  .tt-next{font-size:14px}
+}
+@media(prefers-reduced-motion:reduce){.tt-next .pulse{animation:none}}

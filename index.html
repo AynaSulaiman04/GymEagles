@@ -221,29 +221,7 @@ section{position:relative;scroll-margin-top:76px}
 .seg button[aria-pressed="true"]{color:var(--ink)}
 .seg .pill{position:absolute;z-index:0;top:5px;bottom:5px;left:0;border-radius:999px;background:var(--bone);transition:transform .5s cubic-bezier(.7,0,.2,1),width .5s cubic-bezier(.7,0,.2,1)}
 .dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none}
-.board{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
-.col{border-radius:var(--r);background:var(--ink2);border:1px solid var(--line);padding:12px;display:flex;flex-direction:column;gap:8px;transition:border-color .3s}
-.col.today{border-color:rgba(199,48,58,.55);box-shadow:0 0 0 1px rgba(199,48,58,.25) inset}
-.col h3{margin:4px 6px 8px;display:flex;justify-content:space-between;align-items:center;font:400 30px/1 var(--d);letter-spacing:.02em}
-.col h3 small{font:700 11px var(--b);color:#fff;background:var(--red);padding:5px 8px;border-radius:999px;letter-spacing:.04em}
-.cls{--c:var(--adults);border-radius:12px;padding:12px 12px 12px 14px;background:var(--card);border-left:3px solid var(--c);transition:opacity .35s,transform .35s,filter .35s}
-.cls.kids{--c:var(--kids)}.cls.teens{--c:var(--teens)}
-.cls time{display:block;font:600 13px var(--b);color:var(--mute)}
-.cls b{display:block;font:600 16px/1.25 var(--b);margin-top:2px}
-.cls small{display:block;font-size:13px;color:var(--c);font-weight:600;margin-top:4px}
-.cls.dim{opacity:.18;filter:grayscale(1)}
-.weekend{margin-top:12px;border-radius:14px;border:1px dashed var(--line2);padding:16px 18px;color:var(--mute);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.weekend b{color:var(--bone)}
-.weekend a{color:var(--bone);text-decoration:underline;text-underline-offset:3px}
-.daytabs{display:none}
 @media (max-width:560px){.seg button{padding:0 13px;font-size:14px}}
-@media (max-width:900px){
-  .board{grid-template-columns:1fr}
-  .col{display:none}
-  .col.show{display:flex}
-  .col h3 small{display:none}
-  .daytabs{display:inline-flex;margin-bottom:12px}
-}
 
 /* ---------------- memberships ---------------- */
 .mem{overflow:hidden}
@@ -430,6 +408,7 @@ footer small{color:var(--dim)}
 <link rel="stylesheet" href="prototype-elements.css">
 <link rel="stylesheet" href="motion.css">
 <link rel="stylesheet" href="controls.css">
+<link rel="stylesheet" href="timetable.css">
 
 </head>
 <body>
@@ -596,7 +575,8 @@ footer small{color:var(--dim)}
       <div><div class="kicker">Timetable 2026</div><h2 class="h">Class <em>times</em></h2></div>
       <p class="lead">Classes run Monday to Friday afternoons. The gym floor is open 5:30am – 11pm every day.</p>
     </div>
-    <div class="tt-bar">
+    <div class="tt-next"><span class="pulse" aria-hidden="true"></span><b>Next class</b><span id="ttNext">See the week below</span></div>
+    <div class="tt-top">
       <div class="seg" id="ageSeg" role="group" aria-label="Show classes for">
         <span class="pill"></span>
         <button id="f-all" data-age="all" aria-pressed="true">All</button>
@@ -604,11 +584,17 @@ footer small{color:var(--dim)}
         <button id="f-teens" data-age="teens" aria-pressed="false"><span class="dot" style="background:var(--teens)"></span>Teens</button>
         <button id="f-adults" data-age="adults" aria-pressed="false"><span class="dot" style="background:var(--adults)"></span>Adults</button>
       </div>
+      <p class="tt-legend"><span><i style="background:var(--kids)"></i>Kids 4–12</span><span><i style="background:var(--teens)"></i>Teens 13–16</span><span><i style="background:var(--adults)"></i>Adults 16+</span><span>Classes run 45–60 min</span></p>
     </div>
     <div class="seg daytabs" id="daySeg" role="group" aria-label="Choose a day"><span class="pill"></span></div>
-    <div class="board" id="board"></div>
+    <div class="tt" id="board" aria-label="Weekly class timetable"></div>
     <div class="weekend"><span><b>Saturday &amp; Sunday:</b> no classes — gym floor and recovery open 5:30am – 11pm.</span><a href="https://eaglesgym.com.au/wp-content/uploads/2026/07/eagles-2026-timetable-new.pdf" target="_blank" rel="noopener">Download timetable (PDF)</a></div>
   </div>
+</section>
+
+<!-- PHOTO BAND -->
+<section class="band" style="--band-img:url(images/photos/ring.jpg)" aria-label="Boxing ring">
+  <div class="wrap"><div class="kicker">Unlimited sports from $180 / month</div><h2>Train every <em>night</em> of the week.</h2><p>One membership covers BJJ, MMA, wrestling, boxing and Muay Thai — pick a sport or take them all.</p></div>
 </section>
 
 <!-- MEMBERSHIPS -->
@@ -701,6 +687,11 @@ footer small{color:var(--dim)}
   </div>
 </section>
 
+<!-- PHOTO BAND -->
+<section class="band" style="--band-img:url(images/photos/boxer.jpg)" aria-label="Boxer training on a heavy bag">
+  <div class="wrap"><div class="kicker">268 The Boulevarde, Punchbowl</div><h2>Your first class is a <em>message</em> away.</h2><a class="btn red" href="https://eaglesgym.com.au/signup/" target="_blank" rel="noopener">Sign up today <span class="ar">→</span></a></div>
+</section>
+
 <!-- CONTACT -->
 <section class="contact pad" id="contact">
   <div class="wrap grid">
@@ -783,9 +774,18 @@ const TT=[
 const toH=s=>{const m=s.match(/(\d+):(\d+)/);return (+m[1]%12+12)+(+m[2])/60};
 const who=c=>c.includes("kids")?"Kids":c==="teens"?"Teens":c.includes("teens")?"Teens & adults":"Adults";
 const board=$("#board");
-board.innerHTML=TT.map((d,i)=>`<div class="col${i===DOW?" today":""}" data-d="${i}"><h3>${DAYS[i]}${i===DOW?"<small>TODAY</small>":""}</h3>${d.map(c=>`<div class="cls ${c[3].split(" ")[0]}" data-age="${c[3]}"><time>${c[1]?c[0]+" – "+c[1]:c[0]}</time><b>${c[2]}</b><small>${who(c[3])}</small></div>`).join("")}</div>`).join("");
-/* next class */
-(()=>{for(let k=0;k<7;k++){const d=(DOW+k)%7;if(d>4)continue;const c=TT[d].find(x=>k>0||toH(x[0])>H);if(c){$("#nextClass").textContent=`${c[2].split(" · ")[0]} ${k===0?c[0].replace(/pm$/,"")+"pm":k===1?"tomorrow":DAYS[d].slice(0,3)}`;return}}})();
+/* Week grid: one row per distinct start time, one column per day. */
+const TIMES=[...new Map(TT.flat().map(c=>[toH(c[0]),c[0]])).values()].sort((a,b)=>toH(a)-toH(b));
+const clock=t=>t.replace(/pm$/,"");
+const mins=c=>c[1]?Math.round((toH(c[1])-toH(c[0]))*60)+" min":"";
+const live=(d,c)=>d===DOW&&H>=toH(c[0])&&H<(c[1]?toH(c[1]):toH(c[0])+1);
+board.innerHTML='<div class="tt-corner" aria-hidden="true"></div>'
+ +DAYS.map((d,i)=>`<div class="tt-day${i===DOW?" today":""}">${d}${i===DOW?"<small>Today</small>":""}</div>`).join("")
+ +TIMES.map(t=>`<div class="tt-time"><b>${clock(t)}</b><span>pm</span></div>`
+  +DAYS.map((_,d)=>{const cs=TT[d].filter(c=>toH(c[0])===toH(t));
+   return `<div class="tt-cell${cs.length?"":" empty"}${d===DOW?" today":""}" data-d="${d}"><time class="m">${clock(t)}<span>pm</span></time><div class="tt-cls">${cs.map(c=>`<div class="cls ${c[3].split(" ")[0]}${live(d,c)?" live":""}" data-age="${c[3]}"><b>${c[2]}</b><small>${who(c[3])}${c[1]?` <span>· ${mins(c)}</span>`:""}</small></div>`).join("")}</div></div>`}).join("")).join("");
+/* next class — feeds the hero fact and the timetable strip */
+(()=>{for(let k=0;k<7;k++){const d=(DOW+k)%7;if(d>4)continue;const c=TT[d].find(x=>k>0||toH(x[0])>H);if(c){const t=c[0].replace(/pm$/,"")+"pm";$("#nextClass").textContent=`${c[2].split(" · ")[0]} ${k===0?t:k===1?"tomorrow":DAYS[d].slice(0,3)}`;$("#ttNext").innerHTML=`<strong>${c[2]}</strong> · ${k===0?"today":k===1?"tomorrow":DAYS[d]} at ${t}`;return}}})();
 
 /* segmented controls */
 function seg(el,onPick){
@@ -798,9 +798,9 @@ function seg(el,onPick){
 seg($("#ageSeg"),b=>{const a=b.dataset.age;$$(".cls").forEach(c=>c.classList.toggle("dim",a!=="all"&&!c.dataset.age.includes(a)))});
 const daySeg=$("#daySeg");
 DAYS.forEach((d,i)=>{const b=document.createElement("button");b.id="d-"+i;b.dataset.d=i;b.textContent=d.slice(0,3);b.setAttribute("aria-pressed",String(i===Math.min(DOW,4)));daySeg.append(b)});
-const showDay=i=>$$(".col").forEach(c=>c.classList.toggle("show",+c.dataset.d===i));
+const showDay=i=>$$(".tt-cell").forEach(c=>c.classList.toggle("show",+c.dataset.d===i));
 showDay(Math.min(DOW,4));
-seg(daySeg,b=>{showDay(+b.dataset.d);if(G&&!RM)gsap.from(`.col[data-d="${b.dataset.d}"] .cls`,{y:16,opacity:0,stagger:.04,duration:.45,ease:"power2.out",clearProps:"all"})});
+seg(daySeg,b=>{showDay(+b.dataset.d);if(G&&!RM)gsap.from(`.tt-cell[data-d="${b.dataset.d}"] .cls`,{y:16,opacity:0,stagger:.04,duration:.45,ease:"power2.out",clearProps:"all"})});
 
 /* ---------- memberships (eaglesgym.com.au/our-memberships) ---------- */
 const TICK='<svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="m3 9.5 4 4 8-9" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -1066,7 +1066,7 @@ gsap.from(".pillar",{y:30,opacity:0,stagger:.1,duration:.8,ease:"power3.out",cle
 gsap.from(".pr",{y:40,opacity:0,stagger:.07,duration:.8,ease:"power3.out",clearProps:"transform,opacity",scrollTrigger:{trigger:"#prog",start:"top 85%"}});
 gsap.from(".zone",{y:50,opacity:0,stagger:.08,duration:.9,ease:"power3.out",clearProps:"transform,opacity",scrollTrigger:{trigger:".zones",start:"top 85%"}});
 gsap.from(".rec",{y:40,opacity:0,duration:.9,ease:"power3.out",clearProps:"transform,opacity",scrollTrigger:{trigger:".rec",start:"top 90%"}});
-gsap.from(".col",{y:40,opacity:0,stagger:.06,duration:.8,ease:"power3.out",clearProps:"transform,opacity",scrollTrigger:{trigger:"#board",start:"top 85%"}});
+gsap.from(".tt-time,.tt-cell:not(.empty)",{y:24,opacity:0,stagger:.015,duration:.6,ease:"power3.out",clearProps:"transform,opacity",scrollTrigger:{trigger:"#board",start:"top 85%"}});
 gsap.from(".finder,.table",{y:50,opacity:0,stagger:.1,duration:1,ease:"power3.out",clearProps:"transform,opacity",scrollTrigger:{trigger:"#finder",start:"top 88%"}});
 gsap.from(".contact form,.det>*",{y:30,opacity:0,stagger:.06,duration:.8,ease:"power3.out",clearProps:"transform,opacity",scrollTrigger:{trigger:"#contact",start:"top 75%"}});
 ScrollTrigger.create({trigger:".plans",start:"top 88%",once:true,onEnter:()=>gsap.from(".plan",{y:40,opacity:0,stagger:.1,duration:.9,ease:"power3.out",clearProps:"transform,opacity"})});
