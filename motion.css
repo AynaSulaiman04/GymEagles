@@ -64,3 +64,7 @@
 .coach .wrap{position:relative;z-index:1}
 @media(max-width:760px){.band{min-height:240px}.band h2{font-size:40px}.coach::before{-webkit-mask-image:linear-gradient(180deg,#000,transparent 70%);mask-image:linear-gradient(180deg,#000,transparent 70%)}}
 @media(prefers-reduced-motion:reduce){.oct-visual::before{transition:none}}
+
+/* Quote words start dim and are brightened by the scroll-scrubbed reveal in index.html. */
+.quote .w{opacity:.14}
+@media(prefers-reduced-motion:reduce){.quote .w{opacity:1}}

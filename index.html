@@ -456,7 +456,7 @@ footer small{color:var(--dim)}
     </div>
   </div>
   <div class="hero-copy hc-bot">
-    <p class="sub">Combat. Strength. Recovery.<br>Find your edge in Punchbowl.</p>
+    <p class="sub">Combat. Strength. Recovery.<br>Everything you need to train, under one roof in Punchbowl.</p>
     <div class="cta">
       <a class="btn red" href="https://eaglesgym.com.au/signup/" target="_blank" rel="noopener">Sign up today <span class="ar">→</span></a>
       <a class="btn" href="#timetable">See class times</a>
@@ -499,16 +499,16 @@ footer small{color:var(--dim)}
       <div><div class="kicker">Programs</div><h2 class="h">Pick your <em>fight</em></h2></div>
       <p class="lead">Tap a program to see who it's for and when it runs.</p>
     </div>
-    <div class="rail-controls"><span>Find your discipline</span><div><button type="button" id="programPrev" aria-label="Previous programs">←</button><button type="button" id="programNext" aria-label="Next programs">→</button></div></div>
+    <div class="rail-controls"><span>Find your discipline — the rail moves on its own, or use the arrows</span><div><button type="button" id="programPrev" aria-label="Previous programs">←</button><button type="button" id="programNext" aria-label="Next programs">→</button></div></div>
     <div class="prog" id="prog" tabindex="0" aria-label="Programs. Scroll sideways or use the arrow buttons.">
       <details class="pr">
         <summary><span class="nm">Brazilian Jiu Jitsu</span><span class="who"><span class="tag k">Kids</span><span class="tag t">Teens</span><span class="tag a">Adults</span></span><span class="pm"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" stroke="currentColor" stroke-width="2"/></svg></span></summary>
-        <div class="body"><p>Leverage, technique and control — led by BJJ black belt Coach Volkz, with 14 years on the mats and a background in Greco and freestyle wrestling. A patient path from first class to coloured belts.</p>
+        <div class="body"><p>Leverage, technique and control. Led by black belt Coach Volkz — 14 years on the mats, with Greco and freestyle wrestling roots — on a patient path from your first class to your first coloured belt.</p>
           <div class="when"><div><b>Kids BJJ</b><span>Mon · Wed · Fri — 4:45pm</span></div><div><b>Teens BJJ</b><span>Mon · Wed · Fri — 5:30pm</span></div><div><b>Adults BJJ (all levels)</b><span>Mon · Wed · Fri — 7:30pm</span></div></div></div>
       </details>
       <details class="pr">
         <summary><span class="nm">Boxing &amp; Muay Thai</span><span class="who"><span class="tag k">Kids</span><span class="tag t">13+</span><span class="tag a">Adults</span></span><span class="pm"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" stroke="currentColor" stroke-width="2"/></svg></span></summary>
-        <div class="body"><p>Footwork, combinations and conditioning on the bags and pads. Start in the beginners' class and work your way up to the Fighters Class.</p>
+        <div class="body"><p>Footwork, combinations and conditioning on the bags and pads. Start in the beginners' class, build up through all-levels, and earn your place in the Fighters Class.</p>
           <div class="when"><div><b>Kids Boxing</b><span>Tue — 5:30pm</span></div><div><b>Boxing 13+ (beginners)</b><span>Mon · Wed · Fri — 6:15pm</span></div><div><b>Boxing 13+ (all levels)</b><span>Tue · Thu — 6:15pm</span></div><div><b>Fighters Class</b><span>Mon · Tue · Thu — 7:15pm</span></div></div></div>
       </details>
       <details class="pr">
@@ -522,13 +522,13 @@ footer small{color:var(--dim)}
           <div class="when"><div><b>Kids Wrestling</b><span>Wed — 6:15pm</span></div><div><b>Adults Wrestling</b><span>Tue · Thu — 7:15pm</span></div></div></div>
       </details>
       <details class="pr">
-        <summary><span class="nm">Weightlifting &amp; Gym</span><span class="who"><span class="tag">Open 5:30am – 11pm</span></span><span class="pm"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" stroke="currentColor" stroke-width="2"/></svg></span></summary>
+        <summary><span class="nm">Weightlifting &amp; Gym</span><span class="who"><span class="tag">Open 7 days · 5:30am – 11pm</span></span><span class="pm"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" stroke="currentColor" stroke-width="2"/></svg></span></summary>
         <div class="body"><p>Free weights, racks and machines; treadmills, bikes, rowers and cross-trainers; battle ropes, kettlebells and sleds. Train on your own schedule, 7 days a week.</p>
           <div class="when"><div><b>Gym only</b><span>$50 / month</span></div><div><b>Add to a sports membership</b><span>+$30 / month</span></div></div></div>
       </details>
       <details class="pr">
         <summary><span class="nm">Recovery</span><span class="who"><span class="tag">45-minute sessions</span></span><span class="pm"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" stroke="currentColor" stroke-width="2"/></svg></span></summary>
-        <div class="body"><p>Sauna, recovery bed and compression pants in every session — so you're ready for the next one.</p>
+        <div class="body"><p>Sauna, recovery bed and compression therapy in every 45-minute session — so you're ready to go again tomorrow.</p>
           <div class="when"><div><b>One session</b><span>$60</span></div><div><b>Ten session pass</b><span>$500 (save $100)</span></div></div></div>
       </details>
     </div>
@@ -1060,7 +1060,14 @@ ScrollTrigger.create({onUpdate:s=>{const v=gsap.utils.clamp(-8,8,s.getVelocity()
 gsap.ticker.add(()=>{skew*=.9;row.style.transform!==undefined&&(row.parentElement.style.transform=`rotate(${-1.5+skew*.15}deg) scale(1.04)`)});
 
 /* reveals */
-ScrollTrigger.create({trigger:"#quote",start:"top 75%",once:true,onEnter:()=>$("#quote").classList.add("in")});
+/* quote: each word brightens as you scroll through it; the underline lands once it's read */
+(()=>{const q=$("#quote");
+  const wrap=n=>[...n.childNodes].forEach(c=>{
+    if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(t=>{if(!t)return;if(/^\s+$/.test(t)){f.append(t);return}const s=document.createElement("span");s.className="w";s.textContent=t;f.append(s)});c.replaceWith(f)}
+    else if(c.nodeType===1&&c.tagName!=="BR")wrap(c)});
+  wrap(q);
+  gsap.to("#quote .w",{opacity:1,stagger:.12,ease:"none",scrollTrigger:{trigger:q,start:"top 82%",end:"bottom 40%",scrub:.4,onUpdate:s=>q.classList.toggle("in",s.progress>.85)}});
+})();
 gsap.utils.toArray(".h:not(#h1)").forEach(h=>gsap.from(h,{y:50,opacity:0,duration:1,ease:"power3.out",clearProps:"transform,opacity",scrollTrigger:{trigger:h,start:"top 88%"}}));
 gsap.from(".pillar",{y:30,opacity:0,stagger:.1,duration:.8,ease:"power3.out",clearProps:"transform,opacity",scrollTrigger:{trigger:".pillars",start:"top 85%"}});
 gsap.from(".pr",{y:40,opacity:0,stagger:.07,duration:.8,ease:"power3.out",clearProps:"transform,opacity",scrollTrigger:{trigger:"#prog",start:"top 85%"}});

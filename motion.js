@@ -11,6 +11,18 @@
  const controls=()=>{prev.disabled=rail.scrollLeft<2;next.disabled=rail.scrollLeft+rail.clientWidth>=rail.scrollWidth-2};
  rail.addEventListener('scroll',controls,{passive:true});addEventListener('resize',controls);controls();
  rail.addEventListener('keydown',e=>{if(e.target===rail&&['ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();shift(e.key==='ArrowLeft'?-1:1)}});
+ // Auto-advance the rail while it is on screen. Any touch, hover, wheel or
+ // arrow press pauses it; it resumes after a short idle so it never fights the user.
+ let autoTimer=0,idleTimer=0,paused=false;
+ const onScreen=()=>{const b=rail.getBoundingClientRect();return b.bottom>innerHeight*.25&&b.top<innerHeight*.75};
+ const atEnd=()=>rail.scrollLeft+rail.clientWidth>=rail.scrollWidth-2;
+ const autoStep=()=>{if(paused||document.hidden||!onScreen())return;atEnd()?rail.scrollTo({left:0,behavior:'smooth'}):shift(1)};
+ const resumeIn=ms=>{clearTimeout(idleTimer);idleTimer=setTimeout(()=>{paused=false},ms)};
+ const pauseAuto=()=>{paused=true;resumeIn(7000)};
+ ['pointerdown','pointerenter','touchstart','focusin','wheel'].forEach(t=>rail.addEventListener(t,pauseAuto,{passive:true}));
+ rail.addEventListener('pointerleave',()=>resumeIn(2500));
+ [prev,next].forEach(b=>b.addEventListener('click',pauseAuto));
+ if(!reduced)autoTimer=setInterval(autoStep,3800);
  // Octagonal category explorer from the supplied prototype. Not a physical floor plan.
  const NS='http://www.w3.org/2000/svg';
  const points=r=>Array.from({length:8},(_,i)=>[Math.cos(i*Math.PI/4)*r,Math.sin(i*Math.PI/4)*r]);
