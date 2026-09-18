@@ -11,8 +11,6 @@
  const controls=()=>{prev.disabled=rail.scrollLeft<2;next.disabled=rail.scrollLeft+rail.clientWidth>=rail.scrollWidth-2};
  rail.addEventListener('scroll',controls,{passive:true});addEventListener('resize',controls);controls();
  rail.addEventListener('keydown',e=>{if(e.target===rail&&['ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();shift(e.key==='ArrowLeft'?-1:1)}});
- // Auto-advance the rail while it is on screen. Any touch, hover, wheel or
- // arrow press pauses it; it resumes after a short idle so it never fights the user.
  let autoTimer=0,idleTimer=0,paused=false;
  const onScreen=()=>{const b=rail.getBoundingClientRect();return b.bottom>innerHeight*.25&&b.top<innerHeight*.75};
  const atEnd=()=>rail.scrollLeft+rail.clientWidth>=rail.scrollWidth-2;
@@ -34,7 +32,6 @@
  const mapping=[0,1,3,4,6,7],buttons=all('[data-zone]');
  const zonePhotos=['images/programs/mma.jpg','images/programs/boxing.jpg','images/programs/gym.jpg','images/photos/cardio.jpg','images/photos/functional.jpg','images/programs/recovery.jpg'];
  const choose=button=>{const n=+button.dataset.zone;buttons.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));sectors.forEach((s,i)=>s.classList.toggle('on',i===mapping[n]));$('#zoneLetter').textContent=String(n+1).padStart(2,'0');$('#zoneTitle').textContent=button.textContent.replace(/^\s*\d+\s*/,'');$('#zoneDetail').textContent=descriptions[n];
-  // Swap the photo showing through the octagon ring: fade out, change, fade in.
   const vis=$('.oct-visual');if(vis){vis.classList.add('swap');clearTimeout(vis._t);vis._t=setTimeout(()=>{vis.style.setProperty('--zone-img','url("'+zonePhotos[n]+'")');vis.classList.remove('swap')},180)}};
  buttons.forEach(b=>{b.addEventListener('click',()=>choose(b));b.addEventListener('focus',()=>choose(b));if(fine)b.addEventListener('pointerenter',()=>choose(b))});choose(buttons[0]);
  // Live preview follows the existing calculator without generating fake credentials.

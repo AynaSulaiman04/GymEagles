@@ -105,9 +105,9 @@ section{position:relative;scroll-margin-top:76px}
 .hero h1 .ln>span{display:inline-block}
 .hero p.sub{margin:22px 0 32px;color:#cfc8c1;font-size:clamp(17px,1.35vw,20px);max-width:44ch}
 .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
-.facts{display:flex;gap:0;margin-top:42px;border-top:1px solid var(--line)}
-.facts div{padding:16px 22px 0 0;margin-right:22px;border-right:1px solid var(--line)}
-.facts div:last-child{border-right:0;margin-right:0}
+.facts{display:flex;gap:0;margin-top:42px}
+.facts div{padding:16px 22px 0 0;margin-right:22px}
+.facts div:last-child{margin-right:0}
 .facts small{display:block;color:var(--dim);font-size:13px;font-weight:600}
 .facts b{font:400 26px/1.1 var(--d);letter-spacing:.02em}
 .stage{grid-area:stage;position:relative;height:100%;min-height:640px;touch-action:pan-y}
@@ -441,7 +441,6 @@ footer small{color:var(--dim)}
 <section class="hero" id="home">
   <div class="hero-copy hc-top">
     <p class="hero-eyebrow">Eagles Gym <span>/</span> Punchbowl, Sydney</p>
-    <div class="status" id="status"><i></i><span id="statusTx">Open now · until 11pm</span></div>
     <h1 class="h" id="h1"><span class="ln"><span>Unleash</span></span><span class="ln"><span>your</span></span><span class="ln"><span><em>potential.</em></span></span></h1>
   </div>
   <div class="stage" id="stage">
@@ -475,7 +474,7 @@ footer small{color:var(--dim)}
 </div></div>
 
 <!-- ABOUT -->
-<section class="particle-banner" aria-label="Interactive Eagles wordmark"><canvas id="particleWord" aria-hidden="true"></canvas><span>Move across the letters. Make your mark.</span></section>
+<section class="particle-banner" aria-label="Interactive Eagles wordmark"><canvas id="particleWord" aria-hidden="true"></canvas></section>
 <section class="about pad" id="about">
   <div class="wrap grid">
     <div>
@@ -499,7 +498,7 @@ footer small{color:var(--dim)}
       <div><div class="kicker">Programs</div><h2 class="h">Pick your <em>fight</em></h2></div>
       <p class="lead">Tap a program to see who it's for and when it runs.</p>
     </div>
-    <div class="rail-controls"><span>Find your discipline — the rail moves on its own, or use the arrows</span><div><button type="button" id="programPrev" aria-label="Previous programs">←</button><button type="button" id="programNext" aria-label="Next programs">→</button></div></div>
+    <div class="rail-controls"><div><button type="button" id="programPrev" aria-label="Previous programs">←</button><button type="button" id="programNext" aria-label="Next programs">→</button></div></div>
     <div class="prog" id="prog" tabindex="0" aria-label="Programs. Scroll sideways or use the arrow buttons.">
       <details class="pr">
         <summary><span class="nm">Brazilian Jiu Jitsu</span><span class="who"><span class="tag k">Kids</span><span class="tag t">Teens</span><span class="tag a">Adults</span></span><span class="pm"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 2v14M2 9h14" stroke="currentColor" stroke-width="2"/></svg></span></summary>
@@ -587,13 +586,13 @@ footer small{color:var(--dim)}
       <p class="tt-legend"><span><i style="background:var(--kids)"></i>Kids 4–12</span><span><i style="background:var(--teens)"></i>Teens 13–16</span><span><i style="background:var(--adults)"></i>Adults 16+</span><span>Classes run 45–60 min</span></p>
     </div>
     <div class="seg daytabs" id="daySeg" role="group" aria-label="Choose a day"><span class="pill"></span></div>
-    <div class="tt" id="board" aria-label="Weekly class timetable"></div>
+    <div class="tt" id="board"></div>
     <div class="weekend"><span><b>Saturday &amp; Sunday:</b> no classes — gym floor and recovery open 5:30am – 11pm.</span><a href="https://eaglesgym.com.au/wp-content/uploads/2026/07/eagles-2026-timetable-new.pdf" target="_blank" rel="noopener">Download timetable (PDF)</a></div>
   </div>
 </section>
 
 <!-- PHOTO BAND -->
-<section class="band" style="--band-img:url(images/photos/ring.jpg)" aria-label="Boxing ring">
+<section class="band" style="--band-img:url(images/photos/ring.jpg)">
   <div class="wrap"><div class="kicker">Unlimited sports from $180 / month</div><h2>Train every <em>night</em> of the week.</h2><p>One membership covers BJJ, MMA, wrestling, boxing and Muay Thai — pick a sport or take them all.</p></div>
 </section>
 
@@ -688,7 +687,7 @@ footer small{color:var(--dim)}
 </section>
 
 <!-- PHOTO BAND -->
-<section class="band" style="--band-img:url(images/photos/boxer.jpg)" aria-label="Boxer training on a heavy bag">
+<section class="band" style="--band-img:url(images/photos/boxer.jpg)">
   <div class="wrap"><div class="kicker">268 The Boulevarde, Punchbowl</div><h2>Your first class is a <em>message</em> away.</h2><a class="btn red" href="https://eaglesgym.com.au/signup/" target="_blank" rel="noopener">Sign up today <span class="ar">→</span></a></div>
 </section>
 
@@ -758,9 +757,6 @@ addEventListener("keydown",e=>{if(e.key==="Escape"&&sheet.classList.contains("op
 /* ---------- Sydney time ---------- */
 let H=18,DOW=1;
 try{const p=new Intl.DateTimeFormat("en-AU",{hour:"numeric",minute:"numeric",weekday:"short",hour12:false,timeZone:"Australia/Sydney"}).formatToParts(new Date());const g=t=>p.find(x=>x.type===t).value;H=(+g("hour")%24)+(+g("minute"))/60;DOW=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].indexOf(g("weekday"))}catch(_){}
-const open=H>=5.5&&H<23;
-$("#statusTx").textContent=open?"Open now · until 11pm":"Closed · opens 5:30am";
-if(!open)$("#status").classList.add("closed");
 
 /* ---------- timetable data (Eagles Gym 2026 timetable) ---------- */
 const DAYS=["Monday","Tuesday","Wednesday","Thursday","Friday"];
@@ -774,7 +770,6 @@ const TT=[
 const toH=s=>{const m=s.match(/(\d+):(\d+)/);return (+m[1]%12+12)+(+m[2])/60};
 const who=c=>c.includes("kids")?"Kids":c==="teens"?"Teens":c.includes("teens")?"Teens & adults":"Adults";
 const board=$("#board");
-/* Week grid: one row per distinct start time, one column per day. */
 const TIMES=[...new Map(TT.flat().map(c=>[toH(c[0]),c[0]])).values()].sort((a,b)=>toH(a)-toH(b));
 const clock=t=>t.replace(/pm$/,"");
 const mins=c=>c[1]?Math.round((toH(c[1])-toH(c[0]))*60)+" min":"";
@@ -784,7 +779,7 @@ board.innerHTML='<div class="tt-corner" aria-hidden="true"></div>'
  +TIMES.map(t=>`<div class="tt-time"><b>${clock(t)}</b><span>pm</span></div>`
   +DAYS.map((_,d)=>{const cs=TT[d].filter(c=>toH(c[0])===toH(t));
    return `<div class="tt-cell${cs.length?"":" empty"}${d===DOW?" today":""}" data-d="${d}"><time class="m">${clock(t)}<span>pm</span></time><div class="tt-cls">${cs.map(c=>`<div class="cls ${c[3].split(" ")[0]}${live(d,c)?" live":""}" data-age="${c[3]}"><b>${c[2]}</b><small>${who(c[3])}${c[1]?` <span>· ${mins(c)}</span>`:""}</small></div>`).join("")}</div></div>`}).join("")).join("");
-/* next class — feeds the hero fact and the timetable strip */
+/* next class */
 (()=>{for(let k=0;k<7;k++){const d=(DOW+k)%7;if(d>4)continue;const c=TT[d].find(x=>k>0||toH(x[0])>H);if(c){const t=c[0].replace(/pm$/,"")+"pm";$("#nextClass").textContent=`${c[2].split(" · ")[0]} ${k===0?t:k===1?"tomorrow":DAYS[d].slice(0,3)}`;$("#ttNext").innerHTML=`<strong>${c[2]}</strong> · ${k===0?"today":k===1?"tomorrow":DAYS[d]} at ${t}`;return}}})();
 
 /* segmented controls */
@@ -1051,7 +1046,7 @@ if(typeof Lenis!=="undefined"&&FINE){
 
 /* hero intro */
 gsap.from("#h1 .ln>span",{yPercent:110,duration:1.1,ease:"power4.out",stagger:.1,delay:.1});
-gsap.from(".status,.hero .sub,.hero .cta,.facts",{y:24,opacity:0,duration:.9,ease:"power3.out",stagger:.08,delay:.45,clearProps:"transform,opacity"});
+gsap.from(".hero .sub,.hero .cta,.facts",{y:24,opacity:0,duration:.9,ease:"power3.out",stagger:.08,delay:.45,clearProps:"transform,opacity"});
 gsap.from(".hud,.hint",{opacity:0,y:16,duration:.8,delay:1.4,clearProps:"transform,opacity"});
 
 /* ticker reacts to scroll speed */
@@ -1060,7 +1055,6 @@ ScrollTrigger.create({onUpdate:s=>{const v=gsap.utils.clamp(-8,8,s.getVelocity()
 gsap.ticker.add(()=>{skew*=.9;row.style.transform!==undefined&&(row.parentElement.style.transform=`rotate(${-1.5+skew*.15}deg) scale(1.04)`)});
 
 /* reveals */
-/* quote: each word brightens as you scroll through it; the underline lands once it's read */
 (()=>{const q=$("#quote");
   const wrap=n=>[...n.childNodes].forEach(c=>{
     if(c.nodeType===3){const f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(t=>{if(!t)return;if(/^\s+$/.test(t)){f.append(t);return}const s=document.createElement("span");s.className="w";s.textContent=t;f.append(s)});c.replaceWith(f)}

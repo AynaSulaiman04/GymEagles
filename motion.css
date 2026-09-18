@@ -1,9 +1,8 @@
 .particle-banner{height:clamp(180px,24vw,340px);position:relative;overflow:hidden;background:#0c0e0f;margin-top:20px}
 #particleWord{width:100%;height:100%;display:block;touch-action:pan-y}
-.particle-banner>span{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:12px;color:var(--mute);pointer-events:none;letter-spacing:.06em}
 .about .pillar p,.head>.lead,.about .kicker,.facts div:last-child{display:none}
 .about.pad{padding-top:45px;padding-bottom:75px}.pillar{padding-block:22px}.pillar h3{margin:0;font-size:29px}.quote{font:700 clamp(30px,4vw,52px)/1.1 var(--d);text-transform:uppercase}
-.rail-controls{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;color:var(--mute);font-size:14px}
+.rail-controls{display:flex;align-items:center;justify-content:flex-end;margin-bottom:20px;color:var(--mute);font-size:14px}
 .rail-controls>div{display:flex;gap:8px}.rail-controls button{width:46px;height:46px;border:1px solid var(--line2);border-radius:50%;font-size:24px;transition:background .2s}.rail-controls button:hover{background:var(--red)}.rail-controls button:disabled{opacity:.3;cursor:default}
 #prog{display:flex;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;gap:20px;padding:0 0 24px;scrollbar-color:var(--red) #202020;scrollbar-width:thin;align-items:stretch}
 #prog .pr{flex:0 0 clamp(300px,35vw,460px);min-width:0;scroll-snap-align:start;padding:0 26px;background:radial-gradient(ellipse at 100% 0,rgba(230,0,0,.18),transparent 65%),#141618;overflow:hidden}
@@ -22,11 +21,9 @@
 .member-preview img{width:200px;height:auto}.preview-label{font-size:11px;color:#b6b8ba;text-transform:uppercase;letter-spacing:.12em}.member-preview strong{font:700 38px/1.1 var(--d);text-transform:uppercase}.member-bottom{display:flex;justify-content:space-between;gap:16px;font-size:13px;line-height:1.5}.member-bottom b{white-space:nowrap}.member-shine{position:absolute;inset:0;z-index:-1;background:linear-gradient(115deg,transparent 15%,rgba(230,0,0,.2) 35%,rgba(255,255,255,.24) 45%,transparent 60%);background-size:250% 100%;background-position:var(--shine,50%) 50%;pointer-events:none}
 .f-r{gap:22px}.comparison{margin-top:32px;border-block:1px solid var(--line)}.comparison>summary{cursor:pointer;padding:20px 0;font-weight:600;font-size:16px}.comparison .table{margin-top:0}
 .coach .bio{font-size:22px;line-height:1.5}.contact .head .lead{display:none}
-@media(max-width:760px){.facility-explorer{grid-template-columns:1fr;gap:0}.oct-visual{max-width:350px}.zone-picks button{font-size:26px;padding-block:14px}.member-preview{min-height:235px;padding:22px}.member-preview strong{font-size:34px}#prog .pr{flex-basis:86%;padding-inline:20px}#prog .pr summary{min-height:265px}#prog .nm{font-size:48px}.particle-banner>span{font-size:11px}.about.pad{padding-block:40px}.hero .stage{height:380px}.hero h1{font-size:clamp(64px,16vw,88px)}}
-@media(prefers-reduced-motion:reduce){.member-preview{transform:none!important}#prog{scroll-behavior:auto}.particle-banner>span{display:none}}
+@media(max-width:760px){.facility-explorer{grid-template-columns:1fr;gap:0}.oct-visual{max-width:350px}.zone-picks button{font-size:26px;padding-block:14px}.member-preview{min-height:235px;padding:22px}.member-preview strong{font-size:34px}#prog .pr{flex-basis:86%;padding-inline:20px}#prog .pr summary{min-height:265px}#prog .nm{font-size:48px}.about.pad{padding-block:40px}.hero .stage{height:380px}.hero h1{font-size:clamp(64px,16vw,88px)}}
+@media(prefers-reduced-motion:reduce){.member-preview{transform:none!important}#prog{scroll-behavior:auto}}
 
-/* Program cards: dulled discipline photo behind each card. Photo sits in ::before,
-   the dark scrim + red glow in ::after, content lifted above both. */
 #prog .pr{--pr-img:none}
 #prog .pr:nth-child(1){--pr-img:url("images/programs/bjj.jpg")}
 #prog .pr:nth-child(2){--pr-img:url("images/programs/boxing.jpg")}
@@ -41,14 +38,10 @@
 #prog .pr>summary,#prog .pr>.body{position:relative;z-index:1}
 @media(prefers-reduced-motion:reduce){#prog .pr::before{transition:none;transform:none}#prog .pr:hover::before,#prog .pr[open]::before{transform:none}}
 
-/* Facility explorer: the chosen zone's photo shows through the octagon ring
-   (between the sector wedges and the centre disc). Swapped by motion.js. */
 .oct-visual::before{content:"";position:absolute;inset:4%;border-radius:50%;background:var(--zone-img,none) center/cover no-repeat;opacity:.38;filter:grayscale(.5) contrast(1.05);transition:opacity .35s;pointer-events:none}
 .oct-visual.swap::before{opacity:0}
 .oct-visual svg{position:relative;z-index:1}.oct-center{z-index:2}
 
-/* Full-bleed photo bands between sections so the page does not run
-   text-on-black for its whole length. Photo is dulled and vignetted. */
 .band{position:relative;isolation:isolate;overflow:hidden;min-height:clamp(260px,32vw,420px);display:flex;align-items:flex-end;border-block:1px solid var(--line);background:#0e0d0d}
 .band::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--band-img) center/cover no-repeat;filter:grayscale(.5) contrast(1.05);opacity:.55;transform:scale(1.03)}
 .band::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(11,10,10,.85),rgba(11,10,10,.35) 60%,rgba(11,10,10,.75)),linear-gradient(180deg,rgba(11,10,10,.2),rgba(11,10,10,.9))}
@@ -59,12 +52,10 @@
 .band p{margin:14px 0 0;color:#cfc8c1;font-size:16px;max-width:48ch}
 .band .btn{margin-top:22px}
 
-/* Coach: black-belt texture behind the name, fading into the section colour. */
 .coach::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:url("images/photos/blackbelt.jpg") left center/cover no-repeat;opacity:.22;filter:grayscale(1) contrast(1.1);-webkit-mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.6) 40%,transparent 75%);mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.6) 40%,transparent 75%)}
 .coach .wrap{position:relative;z-index:1}
 @media(max-width:760px){.band{min-height:240px}.band h2{font-size:40px}.coach::before{-webkit-mask-image:linear-gradient(180deg,#000,transparent 70%);mask-image:linear-gradient(180deg,#000,transparent 70%)}}
 @media(prefers-reduced-motion:reduce){.oct-visual::before{transition:none}}
 
-/* Quote words start dim and are brightened by the scroll-scrubbed reveal in index.html. */
 .quote .w{opacity:.14}
 @media(prefers-reduced-motion:reduce){.quote .w{opacity:1}}
