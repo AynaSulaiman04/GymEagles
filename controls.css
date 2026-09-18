@@ -1,0 +1,16 @@
+/* One control shape across the site. Kept last to unify earlier design layers. */
+:root{--control-radius:12px}
+button,.btn,.abar a,.pr summary .pm,.opt{border-radius:var(--control-radius)!important;touch-action:manipulation;-webkit-tap-highlight-color:rgba(230,0,0,.18)}
+.seg,.seg .pill{border-radius:var(--control-radius)!important}
+button,.btn,.abar a{min-height:44px}
+.pr summary .pm{min-width:44px;min-height:44px}
+.zone-picks button{padding-inline:14px;border:1px solid var(--line);margin-bottom:8px}
+.zone-picks button[aria-pressed=true]{padding-left:14px;background:rgba(230,0,0,.08);border-color:var(--red)}
+:is(button,a,input,textarea,summary,[tabindex]):focus-visible{outline:3px solid #fff;outline-offset:4px}
+.opt:focus-within{outline:3px solid #fff;outline-offset:3px}
+html{scroll-padding-top:108px;scroll-padding-bottom:100px}
+:is(section,[id],button,a,input,textarea,summary){scroll-margin-top:108px;scroll-margin-bottom:100px}
+.skip-link{position:fixed;top:12px;left:12px;z-index:100;background:#fff;color:#111;padding:12px 20px;border-radius:var(--control-radius);transform:translateY(-180%)}
+.skip-link:focus{transform:none}
+.toast{transition:opacity .45s,transform .45s,visibility .45s}
+@media(max-width:560px){.pr summary{grid-template-columns:minmax(0,1fr) 44px}.fld input,.fld textarea{font-size:16px}}
